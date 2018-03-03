@@ -16,7 +16,7 @@ module.exports.userlogin = function(req, res, next) {
       data: null
     });
   }
-  else{ User.findOne({ username:{ $eq: req.body.username }}, function(err, user){
+  else{ User.findOne({ username:{ $eq: req.body.username } , password:{ $eq: req.body.password }}, function(err, user){
     if (err){
       throw err;
     }
@@ -89,8 +89,6 @@ module.exports.userCreate = function(req, res, next) {
 module.exports.addToCart = function(req, res, next) {
   var valid =  req.body.username && Validations.isString(req.body.username) &&
     req.body.productId && Validations.isObjectId(req.body.productId);
-    console.log(req.body);
-    console.log(valid);
   if (!valid) {
     return res.status(422).json({
       err: null,
